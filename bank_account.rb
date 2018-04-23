@@ -16,4 +16,11 @@ class BankAccount
     @balance -= amount
     @statement.push([date, nil, amount, @balance])
   end
+
+  def print_header
+    print "Date".center(10) + " || "
+    print "Credit".center(10) + " || "
+    print "Debit".center(10) + " || "
+    print "Balance".center(10)
+  end
 end

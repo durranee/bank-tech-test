@@ -37,5 +37,15 @@ describe "BankAccount" do
       @account.debit("22/02/2017", 100)
       expect(@account.statement).to include(["22/02/2017", nil, 100, 900])
     end
+
+    it "expects to raise error if withdrawing amount is more than balance" do
+      expect{@account.debit("22/02/2017", 100)}.to raise_error("Insufficient balance: Transaction declined.")
+    end
+  end
+
+  describe "#print_header" do
+      specify { expect { @account.print_header }.to output("#{"Date".center(10)}" +
+       " || #{"Credit".center(10)} || #{"Debit".center(10)} || " +
+       "#{"Balance".center(10)}").to_stdout }
   end
 end
