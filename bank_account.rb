@@ -6,8 +6,13 @@ class BankAccount
     @statement = [[]]
   end
 
-  def deposit(date, credit, debit = nil)
-    @balance += credit
-    @statement.push([date, credit, debit, @balance])
+  def deposit(date, amount)
+    @balance += amount
+    @statement.push([date, amount, nil, @balance])
+  end
+
+  def debit(date, amount)
+    @balance -= amount
+    @statement.push([date, nil, amount, @balance])
   end
 end
