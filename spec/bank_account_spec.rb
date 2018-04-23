@@ -12,28 +12,28 @@ describe "BankAccount" do
     end
   end
 
-  describe "#deposit" do
+  describe "#credit" do
 
     it "expects to add the amount given to balance" do
-      @account.deposit("20/02/2017", 1000)
+      @account.credit("20/02/2017", 1000)
       expect(@account.balance).to eq(1000)
     end
 
     it "expects to create a transaction history" do
-      @account.deposit("20/02/2017", 1000)
+      @account.credit("20/02/2017", 1000)
       expect(@account.statement).to include(["20/02/2017", 1000, nil, 1000])
     end
   end
 
   describe "#debit" do
     it "expects to reduce the balance by ammount provided" do
-      @account.deposit("20/02/2017", 1000)
+      @account.credit("20/02/2017", 1000)
       @account.debit("21/02/2017", 100)
       expect(@account.balance).to eq(900)
     end
 
     it "expects to create a transaction history" do
-      @account.deposit("21/02/2017", 1000)
+      @account.credit("21/02/2017", 1000)
       @account.debit("22/02/2017", 100)
       expect(@account.statement).to include(["22/02/2017", nil, 100, 900])
     end
@@ -43,9 +43,17 @@ describe "BankAccount" do
     end
   end
 
-  describe "#print_header" do
-      specify { expect { @account.print_header }.to output("#{"Date".center(10)}" +
-       " || #{"Credit".center(10)} || #{"Debit".center(10)} || " +
-       "#{"Balance".center(10)}").to_stdout }
+  describe "#print_statement" do
+    context "should print transaction body" do
+      specify {
+        @account.credit("21/02/2017", 1000)
+        @account.debit("22/02/2017", 100)
+        expect { @account.print_statement }.to output(
+          "#{"Date".center(10)}" + " || #{"Credit".center(10)} || " +
+          "#{"Debit".center(10)} || " + "#{"Balance".center(10)}\n" +
+          "#{"21/02/2017".center(10)} || #{"1000".rjust(10)} || #{"".rjust(10)} || #{"1000".rjust(10)}\n" +
+          "#{"22/02/2017".center(10)} || #{"".rjust(10)} || #{"100".rjust(10)} || #{"900".rjust(10)}\n").to_stdout }
+    end
+
   end
 end
