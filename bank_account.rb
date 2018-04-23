@@ -12,6 +12,7 @@ class BankAccount
   end
 
   def debit(date, amount)
+    raise "Insufficient balance: Transaction declined." if @balance < amount
     @balance -= amount
     @statement.push([date, nil, amount, @balance])
   end
