@@ -1,3 +1,4 @@
+require 'time'
 require './bank_account'
 
 describe "BankAccount" do
@@ -21,7 +22,7 @@ describe "BankAccount" do
 
     it "expects to create a transaction history" do
       @account.credit("20/02/2017", 1000)
-      expect(@account.statement).to include(["20/02/2017", 1000, nil, 1000])
+      expect(@account.statement).to include([Time.parse("20/02/2017"), 1000, nil, 1000])
     end
   end
 
@@ -35,7 +36,7 @@ describe "BankAccount" do
     it "expects to create a transaction history" do
       @account.credit("21/02/2017", 1000)
       @account.debit("22/02/2017", 100)
-      expect(@account.statement).to include(["22/02/2017", nil, 100, 900])
+      expect(@account.statement).to include([Time.parse("22/02/2017"), nil, 100, 900])
     end
 
     it "expects to raise error if withdrawing amount is more than balance" do

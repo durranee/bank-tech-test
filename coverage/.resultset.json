@@ -3,6 +3,7 @@
     "coverage": {
       "/Users/iD/Projects/Makers/Week10/bank-tech-test/spec/bank_account_spec.rb": [
         1,
+        1,
         null,
         1,
         null,
@@ -65,6 +66,7 @@
       "/Users/iD/Projects/Makers/Week10/bank-tech-test/bank_account.rb": [
         1,
         1,
+        1,
         null,
         1,
         7,
@@ -104,6 +106,6 @@
         null
       ]
     },
-    "timestamp": 1524499577
+    "timestamp": 1524501527
   }
 }

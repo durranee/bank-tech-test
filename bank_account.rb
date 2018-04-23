@@ -1,3 +1,4 @@
+require 'time'
 class BankAccount
   attr_reader :statement, :balance
 
@@ -8,19 +9,19 @@ class BankAccount
 
   def credit(date, amount)
     @balance += amount
-    @statement.push([date, amount, nil, @balance])
+    @statement.push([Time.parse(date), amount, nil, @balance])
   end
 
   def debit(date, amount)
     raise "Insufficient balance: Transaction declined." if @balance < amount
     @balance -= amount
-    @statement.push([date, nil, amount, @balance])
+    @statement.push([Time.parse(date), nil, amount, @balance])
   end
 
   def print_statement
     print_header
     statement.each do |transaction|
-      print "#{transaction[0].center(10)} || "
+      print "#{transaction[0].strftime("%d/%m/%Y").center(10)} || "
       print "#{transaction[1].to_s.rjust(10)} || "
       print "#{transaction[2].to_s.rjust(10)} || "
       print "#{transaction[3].to_s.rjust(10)}"
